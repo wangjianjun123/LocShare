@@ -3,19 +3,19 @@ package com.tnxy.locshare.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.tnxy.locshare.app.App;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Description:  Actitivity基类
  * User:         Wang Jian jun
  * Date:         2016-11-17  08:48
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SupportActivity {
 
     protected Activity mContext;
     private Unbinder mUnBinder;

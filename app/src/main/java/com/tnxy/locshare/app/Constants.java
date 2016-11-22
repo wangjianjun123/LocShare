@@ -11,4 +11,8 @@ public class Constants {
 
     public static final int TYPE_MESSAGE = 102;
 
+    public static final int TYPE_HOME = 103;
+
+    public static final int TYPE_SECOND = 104;
+
 }
