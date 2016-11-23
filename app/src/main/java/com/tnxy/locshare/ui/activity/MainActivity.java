@@ -15,8 +15,12 @@ import com.tnxy.locshare.R;
 import com.tnxy.locshare.app.App;
 import com.tnxy.locshare.app.Constants;
 import com.tnxy.locshare.base.BaseActivity;
+import com.tnxy.locshare.ui.fragment.AboutFragment;
 import com.tnxy.locshare.ui.fragment.HomeFragment;
+import com.tnxy.locshare.ui.fragment.MapFragment;
+import com.tnxy.locshare.ui.fragment.MessageFragment;
 import com.tnxy.locshare.ui.fragment.SecondFragment;
+import com.tnxy.locshare.ui.fragment.SettingFragment;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -38,6 +42,10 @@ public class MainActivity extends BaseActivity
     private int showFragment = Constants.TYPE_HOME;
     HomeFragment mHomeFragment;
     SecondFragment mSecondFragment;
+    MapFragment mMapFragment;
+    MessageFragment mMessageFragment;
+    SettingFragment mSettingFragment;
+    AboutFragment mAboutFragment;
 
 
     @Override
@@ -58,12 +66,16 @@ public class MainActivity extends BaseActivity
         setToolbar(toolbar, "主页");
         mHomeFragment = new HomeFragment();
         mSecondFragment = new SecondFragment();
+        mMapFragment = new MapFragment();
+        mMessageFragment = new MessageFragment();
+        mSettingFragment = new SettingFragment();
+        mAboutFragment = new AboutFragment();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        loadMultipleRootFragment(R.id.flMainContent, 0, mHomeFragment, mSecondFragment);
+        loadMultipleRootFragment(R.id.flMainContent, 0, mHomeFragment, mSecondFragment, mMapFragment, mMessageFragment);
     }
 
     @Override
@@ -86,6 +98,14 @@ public class MainActivity extends BaseActivity
                 return mHomeFragment;
             case Constants.TYPE_SECOND:
                 return mSecondFragment;
+            case Constants.TYPE_MAP:
+                return mMapFragment;
+            case Constants.TYPE_MESSAGE:
+                return mMessageFragment;
+            case Constants.TYPE_SETTING:
+                return mSettingFragment;
+            case Constants.TYPE_ABOUT:
+                return mAboutFragment;
             default:
                 return mHomeFragment;
         }
@@ -116,22 +136,31 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id) {
+            case R.id.nav_home:
+                showFragment = Constants.TYPE_HOME;
+                break;
+            case R.id.nav_second:
+                showFragment = Constants.TYPE_SECOND;
+                break;
+            case R.id.nav_map:
+                showFragment = Constants.TYPE_MAP;
+                break;
+            case R.id.nav_message:
+                showFragment = Constants.TYPE_MESSAGE;
+                break;
+            case R.id.nav_setting:
+                showFragment = Constants.TYPE_SETTING;
+                break;
+            case R.id.nav_about:
+                showFragment = Constants.TYPE_ABOUT;
+                break;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        item.setCheckable(true);
+        toolbar.setTitle(item.getTitle());
         drawer.closeDrawer(GravityCompat.START);
+        showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
+        hideFragment = showFragment;
         return true;
     }
 }

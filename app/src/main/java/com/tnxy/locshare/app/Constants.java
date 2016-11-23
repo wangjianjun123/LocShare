@@ -15,4 +15,8 @@ public class Constants {
 
     public static final int TYPE_SECOND = 104;
 
+    public static final int TYPE_SETTING = 105;
+
+    public static final int TYPE_ABOUT = 106;
+
 }
